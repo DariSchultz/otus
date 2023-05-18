@@ -22,7 +22,11 @@ def test_rectangle_positive(height, width, expected_perimeter, expected_area):
                          ]
                          )
 def test_rectangle_negative(height, width):
-    try:
-        Rectangle(height, width)
-    except:
-        assert ValueError
+    with pytest.raises(ValueError):
+      Rectangle(height, width)
+
+def test_two_rectangle_areas_sum():
+    expected_sum = 60
+    rectangle_1 = Rectangle(1, 10)
+    rectangle_2 = Rectangle(5, 10)
+    assert rectangle_1.add_area(rectangle_2) == expected_sum, f'Expected sum is {expected_sum}'

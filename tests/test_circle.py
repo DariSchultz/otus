@@ -1,5 +1,5 @@
 import pytest
-from src.circle import Circle
+from src.circle import Circle 
 
 @pytest.mark.parametrize('radius, expected_perimeter, expected_area',
                          [
@@ -17,12 +17,15 @@ def test_circle_positive(radius, expected_perimeter, expected_area):
 @pytest.mark.parametrize('radius',
                          [
                              (0),
-                             (-1),
-                             ('text')
+                             (-1)
                          ]
                          )
 def test_circle_negative(radius):
-    try:
+    with pytest.raises(ValueError):
         Circle(radius)
-    except:
-        assert ValueError
+
+def test_two_circle_areas_sum():
+    expected_sum = 326.73
+    circle_1 = Circle(10)
+    circle_2 = Circle(2)
+    assert circle_1.add_area(circle_2) == expected_sum, f'Expected sum is {expected_sum}'

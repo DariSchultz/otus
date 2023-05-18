@@ -26,3 +26,9 @@ def test_triangle_negative(side_a, side_b, side_c):
         Triangle(side_a, side_b, side_c)
     except:
         assert ValueError
+
+def test_two_triangle_areas_sum():
+    expected_sum = 45.28
+    triangle_1 = Triangle(10, 10, 10)
+    triangle_2 = Triangle(2, 2, 3)
+    assert triangle_1.add_area(triangle_2) == expected_sum, f'Expected sum is {expected_sum}'
