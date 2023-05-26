@@ -1,7 +1,7 @@
 import csv
 import json
 
-with open('books.csv', newline='', encoding='utf-8') as csvfile:
+with open('books.csv', newline='') as csvfile:
     reader = csv.DictReader(csvfile)
     books = [row for row in reader]
 
@@ -14,7 +14,7 @@ num_books = len(books)
 books_per_user = num_books // num_users
 remaining_books = num_books % num_users
 
-result = {"users": []}
+result = []
 
 books_to_distribute = list(range(num_books))
 
@@ -29,11 +29,11 @@ for i, user in enumerate(users):
         "name": user["name"],
         "gender": user["gender"],
         "address": user["address"],
-        "age": user["age"],
-        "books": [books[book_id] for book_id in user_books]
+        "age": int(user["age"]),
+        "books": [dict(title=b["Title"], author=b["Author"], pages=int(b["Pages"]), genre=b["Genre"]) for b in books if books.index(b) in user_books]
     }
 
-    result["users"].append(new_user_dict)
+    result.append(new_user_dict)
 
 with open('result.json', 'w', encoding='utf-8') as jsonfile:
     json.dump(result, jsonfile, indent=4)
